@@ -1,0 +1,152 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.hero {
+    width: 100%;
+    height: 100vh;
+    background: #517373;
+    position: relative;
+    display: none;
+    cursor: none!important;
+}
+
+.hero .score-container {
+    position: fixed;
+    left: 30px;
+    top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.hero .score-container img {
+    width: 65px;
+}
+
+.hero .score-container p {
+    font-size: 80px;
+    font-weight: 600;
+}
+
+.hero .life-container {
+    position: fixed;
+    right: 30px;
+    top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.hero .life-container img {
+    width: 75px;
+}
+
+.hero .life-container p {
+    font-size: 65px;
+    font-weight: 600;
+}
+
+.zombies {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.zombies .zombie {
+    max-width: 130px;
+    position: absolute;
+    left: 50%;
+    right: 50%;
+}
+
+/* SCOPE */
+.scope {
+    width: 80px;
+    height: 80px;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.scope .outerScope {
+    width: 100%;
+    height: 100%;
+    border: 2px solid black;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.scope .innerScope {
+    width: 8px;
+    height: 8px;
+    background: red;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+.scope .innerVerticalLine {
+    position: absolute;
+    width: 1px;
+    height: 100%;
+    background: black;
+    left: 50%;
+    transform: translateX(-50%);
+} 
+
+.scope .innerHorizontalLine {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: black;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* ==== Tela de Início ==== */
+.tela-inicio {
+    width: 100%;
+    height: 100vh;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.tela-inicio h1 {
+    color: #f9f9f9;
+    font-size: 8em;
+    text-align: center;
+}
+
+.tela-inicio button {
+    background: red;
+    border: 2px solid red;
+    color: white;
+    font-size: 2em;
+    width: 400px;
+    padding: 20px;
+    margin: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tela-inicio button.config {
+    background: none;
+}
+
+.tela-inicio button.config:hover {
+    background: rgba(255, 0, 0, 0.1);
+}
+
+.tela-inicio button.play:hover {
+    background: rgba(255, 0, 0, 0.4);
+}
