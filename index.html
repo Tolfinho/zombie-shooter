@@ -51,6 +51,7 @@
 
         const life = document.querySelector(".life")
         let zombieDestroyed = false
+        let lifeCollected = false
         let lifes = 6
         life.innerHTML = lifes
 
@@ -68,7 +69,7 @@
                 gameStarted = false
             }
 
-            console.log(e.key)
+            //console.log(e.key)
         })
 
         const telaInicio = document.querySelector(".tela-inicio")
@@ -94,7 +95,7 @@
             if(gameStarted){
                 const zombie = document.createElement('img')
                 let left = parseInt(Math.random() * ((width - 130) - 1) + 1)
-                let top = parseInt(Math.random() * ((height - 130) - 1) + 1)
+                let top = parseInt(Math.random() * ((height - 130) - 200) + 200)
                 zombie.setAttribute("src", "img/zombie.png")
                 zombie.setAttribute("class", "zombie")
                 zombie.setAttribute("draggable", "false")
@@ -104,7 +105,7 @@
                 zombies.appendChild(zombie)
 
                 zombieCount++
-                console.log(zombieCount)
+                //console.log(zombieCount)
                 if(zombieCount >= 10) {
                     telaInicio.style.display = "flex"
                     hero.style.display = "none"
@@ -114,8 +115,27 @@
             }
         }
 
+        /* cria o elemento 'life potion' em uma posição aleatória da tela */
+        function createLife(){
+            if(gameStarted){
+                const lifePotion = document.createElement('img')
+                let leftLP = parseInt(Math.random() * ((width - 130) - 1) + 1)
+                let topLP = parseInt(Math.random() * ((height - 130) - 200) + 200)
+                lifePotion.setAttribute("src", "img/heart.png")
+                lifePotion.setAttribute("class", "lp")
+                lifePotion.setAttribute("draggable", "false")
+                lifePotion.setAttribute("onclick", "collectLP(this)")
+                lifePotion.style.left = leftLP+"px"
+                lifePotion.style.top = topLP+"px"
+                zombies.appendChild(lifePotion)
+            }
+        }
+
         /* spaw de zumbi a cada x segundos */
         setInterval(createZombie, 1000)
+
+        /* spaw uma poção de vida a cada x segundos */
+        setInterval(createLife, 10000)
 
         /* destrio o zumbi que recebe o tiro */
         /* aumenta 1 ponto pro usuário */
@@ -129,23 +149,43 @@
             zombieCount--
         }
 
+        function collectLP(lp){
+            lp.remove()
+            lifes++
+            life.innerHTML = lifes
+            lifeCollected = true
+        }
+
         /* testa se o usuário clicou em um zumbi, senão significa que errou o tiro, então deve perder uma vida */
         /* caso não tenha mais vidas aparece a tela de Game Over */
         function loseLife() {
-            if(zombieDestroyed === false){
+            if(!zombieDestroyed && !lifeCollected){
                 lifes--
                 life.innerHTML = lifes
                 if(lifes == 0){
                     telaInicio.style.display = "flex"
                     hero.style.display = "none"
+                    restartGame()
                 }
-                console.log(lifes)
+                //console.log(lifes)
             }
             zombieDestroyed = false
+            lifeCollected = false
         }
 
         /* reseta todas as variáveis para o valor default */
        function restartGame(){
+           while(zombies.firstChild){
+               zombies.removeChild(zombies.firstChild)
+           }
+           zombieCount = 0
+           zombieDestroyed = false
+           lifeCollected = false
+           gameStarted = false
+           points = 0
+           lifes = 6
+           score.innerHTML = points
+           life.innerHTML = lifes
             console.log("jogo reiniciado")
         }
 
